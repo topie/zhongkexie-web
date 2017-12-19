@@ -197,13 +197,15 @@
                                     text: '提交',
                                     cls: "btn btn-primary",
                                     handle: function (m) {
+                                        var das = {};
                                         var as = paper.getAnswer();
-                                        console.info(as);
+                                        das['answers'] = as;
+                                        das['paperId'] = data.id;
                                         $.ajax({
                                             type: "POST",
                                             dataType: "json",
                                             contentType: "application/json",
-                                            data: JSON.stringify(as),
+                                            data: JSON.stringify(das),
                                             url: App.href + "/api/core/scorePaper/submit",
                                             success: function (data) {
 

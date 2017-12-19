@@ -185,7 +185,7 @@
                     handle: function (index, data, grid) {
                         var modal = $.orangeModal({
                             id: "scoreItemOptionGrid",
-                            title: "管理选项-" + data.name,
+                            title: "管理选项-" + data.title,
                             destroy: true,
                             width: $(window).width()
                         }).show();
@@ -209,6 +209,14 @@
                                 {
                                     title: "选项文本",
                                     field: "optionTitle"
+                                },
+                                {
+                                    title: "系数",
+                                    field: "optionRate"
+                                },
+                                {
+                                    title: "选项描述",
+                                    field: "optionDesc"
                                 }
                             ],
                             actionColumnText: "操作",//操作列文本

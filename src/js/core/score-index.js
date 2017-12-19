@@ -12,7 +12,7 @@
             window.App.title(title);
             var content = $('<div class="panel-body" >' +
                 '<div class="row">' +
-                '<div class="col-md-3" >' +
+                '<div class="col-md-5" >' +
                 '<div class="panel panel-default" >' +
                 '<div class="panel-heading">题库指标管树形' +
                 '<div class="pull-right">' +
@@ -33,7 +33,7 @@
                 '</div>' +
                 '</div>' +
                 '</div>' +
-                '<div class="col-md-9" >' +
+                '<div class="col-md-7" >' +
                 '<div class="panel panel-default" >' +
                 '<div class="panel-heading">题库指标管理</div>' +
                 '<div class="panel-body" id="grid"></div>' +

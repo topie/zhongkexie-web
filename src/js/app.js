@@ -15,7 +15,7 @@
     }
 
     window.App = {
-        href: "http://zhongkexie.topie.com",//测试环境
+        href: "http://10.0.54.95",//测试环境
         //href: "http://zhongkexie.zt647.com",//正式环境
         requestMapping: {}
     };

@@ -105,9 +105,8 @@
         init: function () {
             var that = this;
             var mainPanel = this.getPanel(this._options.title);
-            var foot = $('<div class="panel-footer"><button type="button" role="save" class="btn btn btn-primary">保存</button></div>');
-            mainPanel.append(foot);
             that.$element.append(mainPanel);
+            this.$main = mainPanel;
             if (this._options.data !== undefined && this._options.data.length > 0) {
                 $.each(this._options.data, function (i, idx) {
                     if (idx.type == 'index') {
@@ -117,9 +116,6 @@
                     }
                 });
             }
-            mainPanel.find('button[role=save]').on("click", function () {
-
-            });
         },
         renderSubRow: function (that, row, items) {
             if (items != undefined && items.length > 0) {
@@ -205,7 +201,19 @@
             return this._options;
         },
         getAnswer: function () {
-
+            var answers = [];
+            this.$main.find('form').each(
+                function () {
+                    var answer = {};
+                    var ps = $(this).serialize().split('=');
+                    if (ps.length == 2) {
+                        answer['itemId'] = ps[0];
+                        answer['itemValue'] = ps[1];
+                        answers.push(answer);
+                    }
+                }
+            );
+            return answers;
         }
     };
 

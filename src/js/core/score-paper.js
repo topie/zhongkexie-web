@@ -183,17 +183,41 @@
                         });
                     }
                 }, {
-                    text: "预览",
+                    text: "做题",
                     cls: "btn-primary btn-sm",
                     handle: function (index, data) {
+                        var paper = {};
                         var modal = $.orangeModal({
                             id: "scorePaperView",
-                            title: "预览",
-                            destroy: true
-                        });
-                        modal.show();
+                            title: "做题",
+                            destroy: true,
+                            buttons: [
+                                {
+                                    type: 'button',
+                                    text: '提交',
+                                    cls: "btn btn-primary",
+                                    handle: function (m) {
+                                        var as = paper.getAnswer();
+                                        console.info(as);
+                                        $.ajax({
+                                            type: "POST",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            data: JSON.stringify(as),
+                                            url: App.href + "/api/core/scorePaper/submit",
+                                            success: function (data) {
+
+                                            },
+                                            error: function (e) {
+                                                alert("请求异常。");
+                                            }
+                                        });
+                                    }
+                                }
+                            ]
+                        }).show();
                         var js = JSON.parse(data.contentJson);
-                        modal.$body.orangePaperView(js);
+                        paper = modal.$body.orangePaperView(js);
                     }
                 }
             ],

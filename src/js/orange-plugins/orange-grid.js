@@ -804,32 +804,25 @@
             }
             searchFormRow.find("[role=form]").append('<input style="display:none">');
             searchFormRow.append("<hr>");
+            searchFormRow.find('.form-body').hide();
+            var showBtn = $.tmpl(Grid.statics.buttonTmpl, {
+                "class_": "btn btn-primary",
+                "text_": "显示搜索面板",
+                "title_": "显示",
+                "type_": "button"
+            });
+            var hideBtn = $.tmpl(Grid.statics.buttonTmpl, {
+                "class_": "btn btn-warning",
+                "text_": "隐藏搜索面板",
+                "title_": "隐藏",
+                "type_": "button"
+            });
             if (hide) {
-                showBtn = $.tmpl(Grid.statics.buttonTmpl, {
-                    "class_": "btn btn-primary",
-                    "text_": "显示搜索面板",
-                    "title_": "显示",
-                    "type_": "button"
-                }).show();
-                hideBtn = $.tmpl(Grid.statics.buttonTmpl, {
-                    "class_": "btn btn-warning",
-                    "text_": "隐藏搜索面板",
-                    "title_": "隐藏",
-                    "type_": "button"
-                }).hide();
+                showBtn.hide();
+                hideBtn.show();
             } else {
-                showBtn = $.tmpl(Grid.statics.buttonTmpl, {
-                    "class_": "btn btn-primary",
-                    "text_": "显示搜索面板",
-                    "title_": "显示",
-                    "type_": "button"
-                }).hide();
-                hideBtn = $.tmpl(Grid.statics.buttonTmpl, {
-                    "class_": "btn btn-warning",
-                    "text_": "隐藏搜索面板",
-                    "title_": "隐藏",
-                    "type_": "button"
-                }).show();
+                showBtn.show();
+                hideBtn.hide();
             }
             searchFormRow.find('.form-actions').append(showBtn);
             searchFormRow.find('.form-actions').append(hideBtn);

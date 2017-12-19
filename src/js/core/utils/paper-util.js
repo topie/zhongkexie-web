@@ -46,6 +46,7 @@
                                     "items": [
                                         {
                                             "id": 1,
+                                            "itemType": 1,
                                             "items": [
                                                 {
                                                     "id": 1,
@@ -104,6 +105,8 @@
         init: function () {
             var that = this;
             var mainPanel = this.getPanel(this._options.title);
+            var foot = $('<div class="panel-footer"><button type="button" role="save" class="btn btn btn-primary">保存</button></div>');
+            mainPanel.append(foot);
             that.$element.append(mainPanel);
             if (this._options.data !== undefined && this._options.data.length > 0) {
                 $.each(this._options.data, function (i, idx) {
@@ -114,9 +117,9 @@
                     }
                 });
             }
-            mainPanel.find('span[role=index]').each(function (i, d) {
-                $(this).text(i + 1);
-            })
+            mainPanel.find('button[role=save]').on("click", function () {
+
+            });
         },
         renderSubRow: function (that, row, items) {
             if (items != undefined && items.length > 0) {
@@ -128,8 +131,41 @@
                             that.renderSubRow(that, r, item.items);
                         }
                     } else if (item.type == 'item') {
-                        var qi = that.getQi(item);
+                        var it = {};
+                        it.name = item.id;
+                        it.label = item.title;
+                        if (item.itemType == 0) {
+                            it.type = 'text';
+                        } else if (item.itemType == 1) {
+                            it.type = 'radioGroup';
+                        } else if (item.itemType == 2) {
+                            it.type = 'checkboxGroup';
+                        }
+                        if (item.itemType > 0) {
+                            it.items = [];
+                            $.each(item.items, function (i, op) {
+                                var option = {
+                                    'text': op.title,
+                                    'value': op.id
+                                };
+                                it.items.push(option);
+                            });
+                        }
+                        var qi = that.getQi();
                         row.find('div.panel-body:eq(0)').append(qi);
+                        qi.find('div[role=qi]').orangeForm({
+                            method: "POST",
+                            action: "",
+                            ajaxSubmit: true,
+                            rowEleNum: 1,
+                            ajaxSuccess: function () {
+                            },
+                            showReset: false,
+                            showSubmit: false,
+                            isValidate: true,
+                            buttonsAlign: "center",
+                            items: [it]
+                        })
                     }
                 });
             }
@@ -157,8 +193,8 @@
                 '</div></div>';
             return $.tmpl(rowTmpl, {"title_": title});
         },
-        getQi: function (item) {
-            return $('<div class="row"><div class="col-md-12 col-sm-12"><p><span role="index"></span>.' + item.title + '</p></div></div>');
+        getQi: function () {
+            return $('<div class="row"><div role="qi" class="col-md-12 col-sm-12"></div></div>');
         },
         reload: function (options) {
             this.$element.empty();
@@ -167,6 +203,9 @@
         },
         getJson: function () {
             return this._options;
+        },
+        getAnswer: function () {
+
         }
     };
 

@@ -185,7 +185,7 @@
         _setVariable: function (element, options) {
             this.$element = $(element);
             var id = element.id;
-            if (id === undefined) {
+            if (id === undefined || id !== '') {
                 id = "orange_form_" + new Date().getTime();
                 this.$element.attr("id", id);
             }
@@ -744,9 +744,6 @@
                             "attribute_": (radio.attribute === undefined ? ""
                                 : radio.attribute)
                         });
-                        if (!data.inline) {
-                            rd.css("margin-left", "20px");
-                        }
                         ele.append(rd);
                     });
                 }

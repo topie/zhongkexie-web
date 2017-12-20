@@ -2099,11 +2099,11 @@
 
             var info = $('<div class="dataTables_info" id="' + this._elementId
                 + '_info" role="status" aria-live="polite"></div>');
-            var text = "<label style='font-size: initial;'>" + (this._getTotalPage() == 0 ? 0 : this._pageNum) + "/" + this._getTotalPage() + " " + this._total + "</label>";
+            var text = "<label style='font-size: initial;'>当前第" + (this._getTotalPage() == 0 ? 0 : this._pageNum) + "页/共" + this._getTotalPage() + "页 共" + this._total + "条</label>";
             info.html(text);
             pagingRow.find("[role='info']").append(info);
-            this.$contentTypeDiv.find("#total_count").empty();
-            this.$contentTypeDiv.find("#total_count").append($('<div class="dataTables_info"><label style="font-size: initial;">共 ' + this._total + ' 条数据</label></div>'));
+            //this.$contentTypeDiv.find("#total_count").empty();
+            //this.$contentTypeDiv.find("#total_count").append($('<div class="dataTables_info"><label style="font-size: initial;">共 ' + this._total + ' 条数据</label></div>'));
 
             // page
             var liTmpl = '<li class="${class_}" aria-controls="${pageto_}" id="${id_}" tabindex="0"><a style="${style_}" href="javascript:;">${num_}</a></li>';

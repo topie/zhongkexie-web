@@ -109,60 +109,58 @@
             this.$main = mainPanel;
             if (this._options.data !== undefined && this._options.data.length > 0) {
                 $.each(this._options.data, function (i, idx) {
-                    if (idx.type == 'index') {
-                        var r = that.getRow(idx.title);
-                        mainPanel.find('div.panel-body:eq(0)').append(r);
-                        that.renderSubRow(that, r, idx.items);
-                    }
+                    var r = that.getRow(idx.parentIndexTitle);
+                    mainPanel.find('div.panel-body:eq(0)').append(r);
+                    that.renderSubRow(that, r, idx.items);
                 });
             }
+            this.$main.find("label.control-label").each(function (i, d) {
+                $(this).text((i + 1) + "." + $(this).text());
+            });
         },
         renderSubRow: function (that, row, items) {
             if (items != undefined && items.length > 0) {
+                var its = [];
                 $.each(items, function (i, item) {
-                    if (item.type == 'index') {
-                        var r = that.getRow(item.title);
-                        row.find('div.panel-body:eq(0)').append(r);
-                        if (item.items != undefined && item.items.length > 0) {
-                            that.renderSubRow(that, r, item.items);
-                        }
-                    } else if (item.type == 'item') {
-                        var it = {};
-                        it.name = item.id;
-                        it.label = item.title;
-                        if (item.itemType == 0) {
-                            it.type = 'text';
-                        } else if (item.itemType == 1) {
-                            it.type = 'radioGroup';
-                        } else if (item.itemType == 2) {
-                            it.type = 'checkboxGroup';
-                        }
-                        if (item.itemType > 0) {
-                            it.items = [];
-                            $.each(item.items, function (i, op) {
-                                var option = {
-                                    'text': op.title,
-                                    'value': op.id
-                                };
-                                it.items.push(option);
-                            });
-                        }
-                        var qi = that.getQi();
-                        row.find('div.panel-body:eq(0)').append(qi);
-                        qi.find('div[role=qi]').orangeForm({
-                            method: "POST",
-                            action: "",
-                            ajaxSubmit: true,
-                            rowEleNum: 1,
-                            ajaxSuccess: function () {
-                            },
-                            showReset: false,
-                            showSubmit: false,
-                            isValidate: true,
-                            buttonsAlign: "center",
-                            items: [it]
-                        })
+                    var it = {};
+                    it.name = item.id;
+                    it.label = item.title;
+                    if (item.itemType == 0) {
+                        it.type = 'text';
+                    } else if (item.itemType == 1) {
+                        it.type = 'radioGroup';
+                    } else if (item.itemType == 2) {
+                        it.type = 'checkboxGroup';
                     }
+                    if (item.itemType > 0) {
+                        it.items = [];
+                        $.each(item.items, function (i, op) {
+                            var option = {
+                                'text': op.title,
+                                'value': op.id
+                            };
+                            it.items.push(option);
+                        });
+                    }
+                    if (item.value != undefined && item.value != '') {
+                        it.value = item.value;
+                    }
+                    its.push(it);
+                });
+                var qi = that.getQi();
+                row.find('div.panel-body:eq(0)').append(qi);
+                qi.find('div[role=qi]').orangeForm({
+                    method: "POST",
+                    action: "",
+                    ajaxSubmit: true,
+                    rowEleNum: 1,
+                    ajaxSuccess: function () {
+                    },
+                    showReset: false,
+                    showSubmit: false,
+                    isValidate: true,
+                    buttonsAlign: "center",
+                    items: its
                 });
             }
         },
@@ -183,7 +181,7 @@
                 theme = 'default';
             var rowTmpl = '<div class="row"><div class="col-md-12 col-sm-12">' +
                 '<div class="panel panel-' + theme + '" >' +
-                '<div style="text-align: center" class="panel-heading">${title_}</div>' +
+                '<div style="text-align: left" class="panel-heading">${title_}</div>' +
                 '<div class="panel-body"></div>' +
                 '</div>' +
                 '</div></div>';
@@ -204,16 +202,59 @@
             var answers = [];
             this.$main.find('form').each(
                 function () {
-                    var answer = {};
-                    var ps = $(this).serialize().split('=');
-                    if (ps.length == 2) {
-                        answer['itemId'] = ps[0];
-                        answer['itemValue'] = ps[1];
-                        answers.push(answer);
-                    }
+                    var ps = $(this).serialize().split('&');
+                    console.info(ps);
+                    $.each(ps, function (ii, ppss) {
+                        var pss = ppss.split('=');
+                        if (pss.length == 2) {
+                            var answer = {};
+                            answer['itemId'] = pss[0];
+                            answer['itemValue'] = pss[1];
+                            answers.push(answer);
+                        }
+                    });
+
                 }
             );
             return answers;
+        },
+        loadAnswer: function (ans) {
+            var that = this;
+            $.each(ans, function (i, an) {
+                that.loadValue(an.itemId, an.answerValue);
+            });
+        },
+        loadValue: function (name, value) {
+            var ele = this.$main.find("[name='" + name + "']");
+            if (ele.is('input[type="radio"]')) {
+                this.$main.find(
+                    "input[type='radio'][name='" + name + "'][value='"
+                    + value + "']").attr("checked", true);
+            } else if (ele.is('input[type="checkbox"]')) {
+                if (value != null) {
+                    var values = value.split(",");
+                    for (var i in values) {
+                        this.$main.find(
+                            "input[type='checkbox'][name='" + name
+                            + "'][value='" + values[i] + "']")
+                            .attr("checked", true);
+                    }
+                }
+            } else if (ele.is('select')) {
+                ele.val(value);
+            } else {
+                ele.val(value);
+            }
+            if (!$().uniform) {
+                return;
+            }
+            var test = $("input[type=checkbox]:not(.toggle), input[type=radio]:not(.toggle, .star)");
+            if (test.size() > 0) {
+                test.each(function () {
+                    $(this).show();
+                    $(this).uniform();
+                });
+            }
         }
     };
 

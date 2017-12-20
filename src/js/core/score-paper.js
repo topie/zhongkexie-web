@@ -25,8 +25,8 @@
         }
     };
     var initEvents = function () {
-    	
-    	
+
+
         var grid;
         var tree;
         var options = {
@@ -222,6 +222,24 @@
                         }).show();
                         var js = JSON.parse(data.contentJson);
                         paper = modal.$body.orangePaperView(js);
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                paperId: data.id
+                            },
+                            url: App.href + "/api/core/scorePaper/getAnswer",
+                            success: function (data) {
+                                if (data.code === 200) {
+
+                                } else {
+                                    alert(data.message);
+                                }
+                            },
+                            error: function (e) {
+                                alert("请求异常。");
+                            }
+                        });
                     }
                 }
             ],

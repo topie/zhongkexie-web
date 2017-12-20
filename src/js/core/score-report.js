@@ -25,8 +25,8 @@
         }
     };
     var initEvents = function () {
-    	
-    	
+
+
         var grid;
         var tree;
         var options = {
@@ -64,26 +64,23 @@
                 {
                     title: "审核状态",
                     field: "status",
-                    format:function(num,data){
-                    	if(data.status==0)
-                    		{
-                    		return "未审核";
-                    		}
-                    	else if(data.status==1)
-                    	{
-                    		return "已通过";
-                    	}
-                    	else
-                    		{
-                    		return "已驳回";
-                    		}
+                    format: function (num, data) {
+                        if (data.status == 0) {
+                            return "未审核";
+                        }
+                        else if (data.status == 1) {
+                            return "已通过";
+                        }
+                        else {
+                            return "已驳回";
+                        }
                     }
                 }
             ],
             actionColumnText: "操作",//操作列文本
             actionColumnWidth: "20%",
             actionColumns: [
-                 {
+                {
                     text: "做题",
                     cls: "btn-primary btn-sm",
                     handle: function (index, data) {
@@ -109,7 +106,7 @@
                                             data: JSON.stringify(das),
                                             url: App.href + "/api/core/scorePaper/submit",
                                             success: function (data) {
-                                                 modal.hide();
+                                                modal.hide();
                                             },
                                             error: function (e) {
                                                 alert("请求异常。");
@@ -121,6 +118,24 @@
                         }).show();
                         var js = JSON.parse(data.contentJson);
                         paper = modal.$body.orangePaperView(js);
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                paperId: data.id
+                            },
+                            url: App.href + "/api/core/scorePaper/getAnswer",
+                            success: function (data) {
+                                if (data.code === 200) {
+                                    paper.loadAnswer(data.data);
+                                } else {
+                                    alert(data.message);
+                                }
+                            },
+                            error: function (e) {
+                                alert("请求异常。");
+                            }
+                        });
                     }
                 }
             ],

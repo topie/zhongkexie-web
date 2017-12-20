@@ -1850,7 +1850,6 @@
             var thTmpl = '<th class="${class_} ${sorting_}" rowspan="1" colspan="1" style="white-space: nowrap;${style_}"></th>';
             var tdTmpl = '<td class="${class_}" style="vertical-align: middle;white-space: nowrap;${style_}"></td>';
 
-            var tableRow = $.tmpl(Grid.statics.tableRowTmpl, {});
             var table = $.tmpl(Grid.statics.tableTmpl, {
                 "id_": that._elementId
             });
@@ -2068,8 +2067,7 @@
                 renderLoadingTbody(tbody);
             }
             table.append(tbody);
-            tableRow.find("div[role=content]").append(table);
-            this.$gridWrapper.append(tableRow);
+            this.$gridWrapper.append(table);
         },
         // 渲染分页
         _renderPaging: function () {

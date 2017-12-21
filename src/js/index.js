@@ -22,7 +22,7 @@
                 '<div class="row">' +
                 '<div class="col-md-6" >' +
                 '<div class="panel panel-default" >' +
-                '<div class="panel-heading">板块1</div>' +
+                '<div class="panel-heading">通知</div>' +
                 '<div class="panel-body" id="content1"></div>' +
                 '</div>' +
                 '</div>' +
@@ -63,7 +63,44 @@
         }
     };
     var initEvents = function () {
-
+		initMessage();
     };
 
+function initMessage(){
+	$.ajax({
+		url:App.href + "/api/core/message/list",
+		type:"GET",
+		data:"pageNum=1&pageSize=5",
+		resultType:"json",
+		success:function(result){
+			if(result.code!=200){
+				console.log("信息加载失败");
+			}
+			var $content1 = $("#content1");
+			if(result.data.total>0){
+				var $ul = $('<div class="panel-group" id="accordion"></div>');
+				for(var i=0;i<result.data.total;i++){
+					var item = result.data.data[i];
+					var li='<div class="panel panel-default">'+
+	'                                    <div class="panel-heading">'+
+	'                                        <h4 class="panel-title">'+
+	'                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne'+
+						item.mId+'" aria-expanded="false" class="collapsed"><i class="fa fa-envelope fa-fw"></i>'+
+						item.title+' &nbsp;'+item.createTime+'</a>'+
+	'                                        </h4>'+
+	'                                    </div>'+
+	'                                    <div id="collapseOne'+item.mId+'" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">'+
+	'                                        <div class="panel-body">'+
+														item.content+
+	'                                        </div>'+
+	'                                    </div>'+
+	'                                </div>';
+
+					$ul.append(li);
+				}
+				$content1.append($ul);
+			}
+		}
+	});
+}
 })(jQuery, window, document);

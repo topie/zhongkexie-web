@@ -206,7 +206,7 @@
         chartRowTmpl: '<div class="row" style="margin-top: 10px;margin-bottom: 0px;">' +
         '<div role="content" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>' +
         '</div>',
-        pagingRowTmpl: '<div class="row"><div role="select" class="col-md-3 col-sm-12 hidden-xs hidden-sm"></div><div role="info" class="col-md-2 col-sm-12 hidden-xs hidden-sm"></div><div role="goPage" class="col-md-2 col-sm-12 hidden-xs hidden-sm" style="text-align: right;"></div><div role="page" class="col-md-5 col-sm-12"></div></div>',
+        pagingRowTmpl: '<div class="row"><div role="select" class="col-md-3 col-sm-12 hidden-xs hidden-sm"></div><div role="info" class="col-md-4 col-sm-12 hidden-xs hidden-sm"></div><div role="goPage" class="col-md-2 col-sm-12 hidden-xs hidden-sm" style="text-align: right;"></div><div role="page" class="col-md-3 col-sm-12"></div></div>',
         labelTmpl: '<label>${label_}</label>',
         textTmpl: '<input type="text" name="${name_}" id="${id_}" class="form-control ${span_}" placeholder="${placeholder_}" value="${value_}">',
         passwordTmpl: '<input type="password" class="form-control ${class_}">',

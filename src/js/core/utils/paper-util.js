@@ -8,7 +8,7 @@
         this.$element = $(element);
         var id = element.id;
         if (id === undefined || id == '') {
-            id = "davdian_paper_view_" + new Date().getTime();
+            id = "topie_paper_view_" + new Date().getTime();
             this.$element.attr("id", id);
         }
         this._elementId = id;

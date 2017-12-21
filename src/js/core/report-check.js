@@ -87,45 +87,63 @@
             actionColumnWidth: "20%",
             actionColumns: [
 				{
-				    text: "预览",
-				    cls: "btn-primary btn-sm",
-				    handle: function (index, data) {
-				        var paper = {};
-				        var modal = $.orangeModal({
-				            id: "scorePaperView",
-				            title: "填报",
-				            destroy: true,
-				            buttons: [
-				               /* {
-				                    type: 'button',
-				                    text: '提交',
-				                    cls: "btn btn-primary",
-				                    handle: function (m) {
-				                        var das = {};
-				                        var as = paper.getAnswer();
-				                        das['answers'] = as;
-				                        das['paperId'] = data.id;
-				                        $.ajax({
-				                            type: "POST",
-				                            dataType: "json",
-				                            contentType: "application/json",
-				                            data: JSON.stringify(das),
-				                            url: App.href + "/api/core/scorePaper/submit",
-				                            success: function (data) {
-				
-				                            },
-				                            error: function (e) {
-				                                alert("请求异常。");
-				                            }
-				                        });
-				                    }
-				                }*/
-				            ]
-				        }).show();
-				        var js = JSON.parse(data.contentJson);
-				        paper = modal.$body.orangePaperView(js);
-				    }
-				},             
+                    text: "预览",
+                    cls: "btn-primary btn-sm",
+                    handle: function (index, data) {
+                        var paper = {};
+                        var modal = $.orangeModal({
+                            id: "scorePaperView",
+                            title: "预览",
+                            destroy: true,
+                           /* buttons: [
+                                {
+                                    type: 'button',
+                                    text: '提交',
+                                    cls: "btn btn-primary",
+                                    handle: function (m) {
+                                        var das = {};
+                                        var as = paper.getAnswer();
+                                        das['answers'] = as;
+                                        das['paperId'] = data.id;
+                                        $.ajax({
+                                            type: "POST",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            data: JSON.stringify(das),
+                                            url: App.href + "/api/core/scorePaper/submit",
+                                            success: function (data) {
+
+                                            },
+                                            error: function (e) {
+                                                alert("请求异常。");
+                                            }
+                                        });
+                                    }
+                                }
+                            ]*/
+                        }).show();
+                        var js = JSON.parse(data.contentJson);
+                        paper = modal.$body.orangePaperView(js);
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                paperId: data.id
+                            },
+                            url: App.href + "/api/core/scorePaper/getAnswer",
+                            success: function (data) {
+                                if (data.code === 200) {
+
+                                } else {
+                                    alert(data.message);
+                                }
+                            },
+                            error: function (e) {
+                                alert("请求异常。");
+                            }
+                        });
+                    }
+                },             
                 {
                     text: "通过",
                     cls: "btn-primary btn-sm",

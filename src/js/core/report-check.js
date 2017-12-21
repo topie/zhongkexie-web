@@ -94,33 +94,7 @@
                         var modal = $.orangeModal({
                             id: "scorePaperView",
                             title: "预览",
-                            destroy: true,
-                           /* buttons: [
-                                {
-                                    type: 'button',
-                                    text: '提交',
-                                    cls: "btn btn-primary",
-                                    handle: function (m) {
-                                        var das = {};
-                                        var as = paper.getAnswer();
-                                        das['answers'] = as;
-                                        das['paperId'] = data.id;
-                                        $.ajax({
-                                            type: "POST",
-                                            dataType: "json",
-                                            contentType: "application/json",
-                                            data: JSON.stringify(das),
-                                            url: App.href + "/api/core/scorePaper/submit",
-                                            success: function (data) {
-
-                                            },
-                                            error: function (e) {
-                                                alert("请求异常。");
-                                            }
-                                        });
-                                    }
-                                }
-                            ]*/
+                            destroy: true
                         }).show();
                         var js = JSON.parse(data.contentJson);
                         paper = modal.$body.orangePaperView(js);
@@ -133,7 +107,7 @@
                             url: App.href + "/api/core/scorePaper/getAnswer",
                             success: function (data) {
                                 if (data.code === 200) {
-
+                                    paper.loadAnswer(data.data);
                                 } else {
                                     alert(data.message);
                                 }

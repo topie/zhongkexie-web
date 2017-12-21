@@ -25,7 +25,7 @@
         }
     };
     var initEvents = function () {
-    	
+
         var grid;
         var tree;
         var options = {
@@ -63,19 +63,16 @@
                 , {
                     title: "审核状态",
                     field: "status",
-                    format:function(num,data){
-                    	if(data.status==0)
-                    		{
-                    		return "未审核";
-                    		}
-                    	else if(data.status==1)
-                    	{
-                    		return "已通过";
-                    	}
-                    	else
-                    		{
-                    		return "已驳回";
-                    		}
+                    format: function (num, data) {
+                        if (data.status == 0) {
+                            return "未审核";
+                        }
+                        else if (data.status == 1) {
+                            return "已通过";
+                        }
+                        else {
+                            return "已驳回";
+                        }
                     },
                     sort: true
                 }
@@ -83,57 +80,49 @@
             actionColumnText: "操作",//操作列文本
             actionColumnWidth: "20%",
             actionColumns: [
-				{
-				    text: "预览",
-				    cls: "btn-primary btn-sm",
+                {
+                    text: "预览",
+                    cls: "btn-primary btn-sm",
                     handle: function (index, data) {
                         var paper = {};
                         var modal = $.orangeModal({
                             id: "scorePaperView",
                             title: "填报",
-                            destroy: true,
-                            buttons: [
-                               /* {
-                                    type: 'button',
-                                    text: '提交',
-                                    cls: "btn btn-primary",
-                                    handle: function (m) {
-                                        var das = {};
-                                        var as = paper.getAnswer();
-                                        das['answers'] = as;
-                                        das['paperId'] = data.id;
-                                        $.ajax({
-                                            type: "POST",
-                                            dataType: "json",
-                                            contentType: "application/json",
-                                            data: JSON.stringify(das),
-                                            url: App.href + "/api/core/scorePaper/submit",
-                                            success: function (data) {
-
-                                            },
-                                            error: function (e) {
-                                                alert("请求异常。");
-                                            }
-                                        });
-                                    }
-                                }*/
-                            ]
+                            destroy: true
                         }).show();
                         var js = JSON.parse(data.contentJson);
                         paper = modal.$body.orangePaperView(js);
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                paperId: data.id
+                            },
+                            url: App.href + "/api/core/scorePaper/getAnswer",
+                            success: function (data) {
+                                if (data.code === 200) {
+                                    paper.loadAnswer(data.data);
+                                } else {
+                                    alert(data.message);
+                                }
+                            },
+                            error: function (e) {
+                                alert("请求异常。");
+                            }
+                        });
                     }
-				}, 
+                },
                 {
                     text: "通过",
                     cls: "btn-primary btn-sm",
                     handle: function (index, data) {
-                    	var requestUrl = App.href + "/api/core/scorePaper/check";
-                    	$.ajax({
+                        var requestUrl = App.href + "/api/core/scorePaper/check";
+                        $.ajax({
                             type: "GET",
                             dataType: "json",
                             data: {
                                 id: data.id,
-                                result:1
+                                result: 1
                             },
                             url: requestUrl,
                             success: function (data) {
@@ -152,13 +141,13 @@
                     text: "驳回",
                     cls: "btn-danger btn-sm",
                     handle: function (index, data) {
-                    	var requestUrl = App.href + "/api/core/scorePaper/check";
-                    	$.ajax({
+                        var requestUrl = App.href + "/api/core/scorePaper/check";
+                        $.ajax({
                             type: "GET",
                             dataType: "json",
                             data: {
                                 id: data.id,
-                                result:2
+                                result: 2
                             },
                             url: requestUrl,
                             success: function (data) {
@@ -187,7 +176,7 @@
                         modal.$body.orangePaperView(js);
                     }
                 }*/
-            ],/*,
+            ], /*,
             tools: [
                 {
                     text: " 添 加",

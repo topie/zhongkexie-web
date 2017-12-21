@@ -36,7 +36,7 @@
     Tab.defaults = {
         lazy: true,
         tabs: [],
-        showOtherTab: false,
+        hideOtherTab: false,
         buttons: []
     };
     Tab.prototype = {
@@ -45,6 +45,7 @@
             if (this._options.tabs !== undefined && this._options.tabs.length > 0) {
                 var ul = $('<ul class="nav nav-tabs"></ul>');
                 that.$element.append(ul);
+                that.$ul = ul;
                 var tabContent = $('<div style="border-left: 1px solid #ddd;' +
                     'border-right: 1px solid #ddd;' +
                     'border-bottom: 1px solid #ddd;' +
@@ -81,7 +82,15 @@
 
                 });
             }
-
+            if (this._options.hideOtherTab) {
+                this.$ul.find('a').on("click", function () {
+                    var li = $(this).parent('li');
+                    li.show();
+                    li.siblings().each(function () {
+                        $(this).hide();
+                    });
+                });
+            }
         },
         renderContent: function (spanElement, content) {
             var rObject = $(spanElement);
@@ -108,7 +117,6 @@
         },
         next: function () {
             var li = this.$element.find('li.active').next();
-            console.info(li.html());
             if (li.length > 0) {
                 li.find('a').trigger('click');
             }

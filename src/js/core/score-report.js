@@ -81,13 +81,13 @@
             actionColumnWidth: "20%",
             actionColumns: [
                 {
-                    text: "做题",
+                    text: "填报",
                     cls: "btn-primary btn-sm",
                     handle: function (index, data) {
                         var paper = {};
                         var modal = $.orangeModal({
                             id: "scorePaperView",
-                            title: "做题",
+                            title: "填报",
                             destroy: true,
                             buttons: [
                                 {

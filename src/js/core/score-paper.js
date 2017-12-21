@@ -184,7 +184,7 @@
                             }
                         });
                     }
-                }, {
+                }/*, {
                     text: "做题",
                     cls: "btn-primary btn-sm",
                     handle: function (index, data) {
@@ -241,7 +241,7 @@
                             }
                         });
                     }
-                }
+                }*/
             ],
             tools: [
                 {

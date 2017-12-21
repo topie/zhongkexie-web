@@ -117,7 +117,7 @@
                             ]
                         }).show();
                         var js = JSON.parse(data.contentJson);
-                        paper = modal.$body.orangePaperView(js);
+                        paper = modal.$body.orangePaperFill(js);
                         $.ajax({
                             type: "POST",
                             dataType: "json",

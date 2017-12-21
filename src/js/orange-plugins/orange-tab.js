@@ -7,8 +7,8 @@
         this._options = options;
         this.$element = $(element);
         var id = element.id;
-        if (id === undefined) {
-            id = "davdian_tab_" + new Date().getTime();
+        if (id === undefined || id == '') {
+            id = "topie_tab_" + new Date().getTime();
             this.$element.attr("id", id);
         }
         this._elementId = id;
@@ -20,8 +20,8 @@
                 title: 'tab1',
                 active: true,
                 content: {
-                    plugin: 'grid',
-                    option: {}
+                    plugin: 'form',
+                    options: {}
                 }
             },
             {
@@ -34,7 +34,10 @@
         ]
     };
     Tab.defaults = {
-        tabs: []
+        lazy: true,
+        tabs: [],
+        showOtherTab: false,
+        buttons: []
     };
     Tab.prototype = {
         init: function () {
@@ -42,7 +45,11 @@
             if (this._options.tabs !== undefined && this._options.tabs.length > 0) {
                 var ul = $('<ul class="nav nav-tabs"></ul>');
                 that.$element.append(ul);
-                var tabContent = $('<div class="tab-content"></div>');
+                var tabContent = $('<div style="border-left: 1px solid #ddd;' +
+                    'border-right: 1px solid #ddd;' +
+                    'border-bottom: 1px solid #ddd;' +
+                    'padding: 5px 12px 5px 12px;"' +
+                    ' class="tab-content"></div>');
                 that.$element.append(tabContent);
                 $.each(that._options.tabs, function (i, tab) {
                     var tId = that._elementId + "_tab" + i;
@@ -52,20 +59,24 @@
                         tab.title + '</a>' +
                         '</li>');
                     ul.append(li);
-                    var pane = $('<div id="' + tId + '" class="tab-pane fade' + (tab.active === true ? ' active in ' : '') + '"></div>');
+                    var pane = $('<div id="' + tId + '" class="tab-pane fade' + (tab.active === true ? ' active in ' : '') + '"><div role="content"></div></div>');
                     tabContent.append(pane);
-                    if (tab.active === true) {
-                        that.renderContent(pane, tab.content);
-                        li.find("a").addClass("init")
+                    if (!that._options.lazy) {
+                        that.renderContent(pane.find('div[role=content]'), tab.content);
                     } else {
-                        li.find("a").on("click.init", function (e) {
-                            var $t = $(this);
-                            if (!$(this).hasClass("init")) {
-                                that.renderContent(pane, tab.content);
-                                $t.off("click.init");
-                                $t.addClass("init");
-                            }
-                        })
+                        if (tab.active === true) {
+                            that.renderContent(pane.find('div[role=content]'), tab.content);
+                            li.find("a").addClass("init")
+                        } else {
+                            li.find("a").on("click.init", function (e) {
+                                var $t = $(this);
+                                if (!$(this).hasClass("init")) {
+                                    that.renderContent(pane.find('div[role=content]'), tab.content);
+                                    $t.off("click.init");
+                                    $t.addClass("init");
+                                }
+                            })
+                        }
                     }
 
                 });
@@ -91,9 +102,27 @@
             } else {
                 $(spanElement).append(content.html);
             }
-            console.log(content.afterRender);
             if (content.afterRender != undefined) {
                 content.afterRender(rObject);
+            }
+        },
+        next: function () {
+            var li = this.$element.find('li.active').next();
+            console.info(li.html());
+            if (li.length > 0) {
+                li.find('a').trigger('click');
+            }
+        },
+        prev: function () {
+            var li = this.$element.find('ul.nav').find('li.active').prev();
+            if (li.length > 0) {
+                li.find('a').trigger('click');
+            }
+        },
+        go: function (i) {
+            var li = this.$element.find('ul.nav').find('li:eq(' + i + ')');
+            if (li.length > 0) {
+                li.find('a').trigger('click');
             }
         }
     };

@@ -67,12 +67,12 @@
                     field: "id",
                     sort: true,
                     width: "5%"
-                },*/ {
+                }, {
                     title: "父节点id",
                     field: "parentId",
                     sort: true,
                     width: "5%"
-                }, {
+                },*/ {
                     title: "指标名称",
                     field: "name",
                     sort: true

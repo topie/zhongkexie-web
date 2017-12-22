@@ -155,4 +155,5 @@
         grid = window.App.content.find("#grid").orangeGrid(options);
 
     };
+	
 })(jQuery, window, document);

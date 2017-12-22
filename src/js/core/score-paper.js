@@ -187,7 +187,7 @@
                 },
 					{
                     text: "复制",
-                    cls: "btn-primary btn-sm",
+                    cls: "btn-warning btn-sm",
                     handle: function (index, data) {
                     	
                     }

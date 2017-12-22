@@ -33,9 +33,16 @@
                 $.each(this._options.data, function (i, idx) {
                     if (idx.items.length > 0) {
                         $.each(idx.items, function (ii, item) {
+                            var display = {
+                                name: '',
+                                id: '',
+                                type: 'display',
+                                label: '',
+                                html: '<h4>' + idx.parentIndexTitle + '</h4>'
+                            };
                             var it = {};
                             it.name = item.id;
-                            it.label = item.title;
+                            it.label = item.title + "(" + item.score + "分)";
                             if (item.itemType == 0) {
                                 it.type = 'text';
                             } else if (item.itemType == 1) {
@@ -57,7 +64,7 @@
                                 it.value = item.value;
                             }
                             var tab = {};
-                            tab['title'] = itemIndex;
+                            tab['title'] = '第' + itemIndex + '题';
                             tab['content'] = {
                                 plugin: 'form',
                                 options: {
@@ -71,7 +78,7 @@
                                     showSubmit: false,
                                     isValidate: true,
                                     buttonsAlign: "center",
-                                    items: [it]
+                                    items: [display, it]
                                 }
                             };
                             tabs.push(tab);
@@ -82,7 +89,7 @@
             }
             tabs[0].active = true;
             var tab = mainPanel.find('div.panel-body:eq(0)').orangeTab({
-                showOtherTab: false,
+                hideOtherTab: false,
                 lazy: false,
                 tabs: tabs
             });
@@ -103,7 +110,7 @@
                 theme = 'default';
             var panelTmpl =
                 '<div class="panel panel-' + theme + '" >' +
-                '<div style="text-align: center" class="panel-heading">${title_}</div>' +
+                '<div style="text-align: center" class="panel-heading"><h3>${title_}</h3></div>' +
                 '<div class="panel-body"></div>' +
                 '<div class="panel-footer"></div>' +
                 '</div>';

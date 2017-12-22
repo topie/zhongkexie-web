@@ -1,13 +1,18 @@
 /*alteracoes da barra de navegacao principal*/
 
 div.head-link {
-  font-size: 28px;
+  font-size: 22px;
   padding-left: 24px;
   float: left;
   width: 480px;
   padding-top: 7px;
   margin-right: 10px;
 }
+div.head-link .headv {
+  font-size: 14px;
+     margin-left: 5px;
+}
+
 
 .navbar {
   margin-bottom: 0;

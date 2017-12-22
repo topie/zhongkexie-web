@@ -21,41 +21,41 @@
             var content = $('<div class="panel-body" >' +
                 '<div class="row">' +
                 '<div class="col-md-6" >' +
-                '<div class="panel panel-default" >' +
-                '<div class="panel-heading">通知</div>' +
+                '<div class="panel panel-info" >' +
+                '<div class="panel-heading">通知公告</div>' +
                 '<div class="panel-body" id="content1"></div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6" >' +
-                '<div class="panel panel-default" >' +
-                '<div class="panel-heading">板块2</div>' +
+                '<div class="panel panel-warning" >' +
+                '<div class="panel-heading">今日日程</div>' +
                 '<div class="panel-body" id="content2"></div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6" >' +
-                '<div class="panel panel-default" >' +
-                '<div class="panel-heading">板块3</div>' +
+                '<div class="panel panel-danger" >' +
+                '<div class="panel-heading">实用工具</div>' +
                 '<div class="panel-body" id="content3"></div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6" >' +
-                '<div class="panel panel-default" >' +
+                '<div class="panel panel-success" >' +
                 '<div class="panel-heading">板块4</div>' +
                 '<div class="panel-body" id="content4"></div>' +
                 '</div>' +
                 '</div>' +
-                '<div class="col-md-6" >' +
-                '<div class="panel panel-default" >' +
+               /*'<div class="col-md-6" >' +
+                '<div class="panel panel-primary" >' +
                 '<div class="panel-heading">板块5</div>' +
                 '<div class="panel-body" id="content5"></div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6" >' +
-                '<div class="panel panel-default" >' +
+                '<div class="panel panel-red" >' +
                 '<div class="panel-heading">板块6</div>' +
                 '<div class="panel-body" id="content6"></div>' +
                 '</div>' +
-                '</div>' +
+                '</div>' +*/
                 '</div>' +
                 '</div>');
             App.content.append(content);
@@ -81,15 +81,21 @@ function initMessage(){
 				var $ul = $('<div class="panel-group" id="accordion"></div>');
 				for(var i=0;i<result.data.total;i++){
 					var item = result.data.data[i];
+					var open=' aria-expanded="false" class="collapsed" ';
+					var contentopne='class=" panel-collapse collapse" aria-expanded="false" style="height: 0px;" ';
+					if(i==0){
+						open=' aria-expanded="true" ';
+						contentopne='class=" panel-collapse collapse in" aria-expanded="true" ';
+					}
 					var li='<div class="panel panel-default">'+
 	'                                    <div class="panel-heading">'+
 	'                                        <h4 class="panel-title">'+
 	'                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne'+
-						item.mId+'" aria-expanded="false" class="collapsed"><i class="fa fa-envelope fa-fw"></i>'+
-						item.title+' &nbsp;'+item.createTime+'</a>'+
+						item.mId+'" '+open+'><i class="fa fa-envelope fa-fw"></i>'+
+						item.title+' &nbsp;'+item.createTime.substring(0,11)+'</a>'+
 	'                                        </h4>'+
 	'                                    </div>'+
-	'                                    <div id="collapseOne'+item.mId+'" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">'+
+	'                                    <div id="collapseOne'+item.mId+'" '+contentopne+'>'+
 	'                                        <div class="panel-body">'+
 														item.content+
 	'                                        </div>'+

@@ -14,7 +14,7 @@
                 '<div class="row">' +
                 '<div class="col-md-5" >' +
                 '<div class="panel panel-default" >' +
-                '<div class="panel-heading">题库指标管树形' +
+                '<div class="panel-heading">评价指标管理' +
                 '<div class="pull-right">' +
                 '<div class="btn-group">' +
                 '<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
@@ -35,7 +35,7 @@
                 '</div>' +
                 '<div class="col-md-7" >' +
                 '<div class="panel panel-default" >' +
-                '<div class="panel-heading">题库指标管理</div>' +
+                '<div class="panel-heading">评价指标管理</div>' +
                 '<div class="panel-body" id="grid"></div>' +
                 '</div>' +
                 '</div>' +

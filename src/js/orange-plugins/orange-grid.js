@@ -166,7 +166,7 @@
         indexNumWidth: "2%",
         indexNumText: "序号",
         contentType: "table",
-        showContentType: true,
+        showContentType: false,
         contentTypeItems: "table,card,list",
         showSearch: true,
         showPaging: true,
@@ -1194,8 +1194,8 @@
                 });
             }
             if (!this._showContentType) {
-                that.$contentTypeDiv.find("#tab").hide();
-            }
+				 that.$contentTypeDiv.find("#tab").hide();
+			}
             var gridWrapper = $.tmpl(Grid.statics.gridWrapperTmpl, {
                 "id_": that._elementId
             });

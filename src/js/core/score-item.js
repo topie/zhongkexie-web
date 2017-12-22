@@ -37,16 +37,16 @@
             headField: "title",
             showCheck: true,//是否显示checkbox
             checkboxWidth: "3%",
-            showIndexNum: false,
+            showIndexNum: true,
             indexNumWidth: "5%",
             pageSelect: [2, 15, 30, 50],
             columns: [
-                {
+               /* {
                     title: "ID",
                     field: "id",
                     sort: true,
                     width: "5%"
-                }, {
+                },*/ {
                     title: "题目名称",
                     field: "title",
                     sort: true
@@ -54,7 +54,16 @@
                     title: "题目分值",
                     field: "score",
                     sort: true
-                }
+                },{
+					title:"类型",
+					field:"type",
+					format:function(index,data){
+					 if(data.type==0)return '填空';
+					 if(data.type==1)return '单选';
+					 if(data.type==2)return '多选';
+					 return '未识别';
+					}
+				}
             ],
             actionColumnText: "操作",//操作列文本
             actionColumnWidth: "20%",
@@ -182,6 +191,10 @@
                 }, {
                     text: "管理选项",
                     cls: "btn-info btn-sm",
+					visible:function(index,data){
+						if(data.type==1)return true;
+						return false;
+					},
                     handle: function (index, data, grid) {
                         var modal = $.orangeModal({
                             id: "scoreItemOptionGrid",

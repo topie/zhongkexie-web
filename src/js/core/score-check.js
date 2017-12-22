@@ -38,16 +38,16 @@
             headField: "title",
             showCheck: true,//是否显示checkbox
             checkboxWidth: "3%",
-            showIndexNum: false,
+            showIndexNum: true,
             indexNumWidth: "5%",
             pageSelect: [2, 15, 30, 50],
             columns: [
-                {
+                /*{
                     title: "ID",
                     field: "id",
                     sort: true,
                     width: "5%"
-                }, {
+                },*/ {
                     title: "试卷名称",
                     field: "title",
                     sort: true

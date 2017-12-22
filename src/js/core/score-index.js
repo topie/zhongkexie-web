@@ -58,16 +58,16 @@
             headField: "name",
             showCheck: true,//是否显示checkbox
             checkboxWidth: "3%",
-            showIndexNum: false,
+            showIndexNum: true,
             indexNumWidth: "5%",
             pageSelect: [2, 15, 30, 50],
             columns: [
-                {
+               /* {
                     title: "节点id",
                     field: "id",
                     sort: true,
                     width: "5%"
-                }, {
+                },*/ {
                     title: "父节点id",
                     field: "parentId",
                     sort: true,

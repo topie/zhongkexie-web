@@ -38,16 +38,16 @@
             headField: "title",
             showCheck: true,//是否显示checkbox
             checkboxWidth: "3%",
-            showIndexNum: false,
+            showIndexNum: true,
             indexNumWidth: "5%",
             pageSelect: [2, 15, 30, 50],
             columns: [
-                {
+                /*{
                     title: "ID",
                     field: "id",
                     sort: true,
                     width: "5%"
-                }, {
+                },*/ {
                     title: "试卷名称",
                     field: "title",
                     sort: true
@@ -159,6 +159,32 @@
                             success: function (data) {
                                 if (data.code === 200) {
                                     grid.reload();
+                                } else {
+                                    alert(data.message);
+                                }
+                            },
+                            error: function (e) {
+                                alert("请求异常。");
+                            }
+                        });
+                    }
+                },
+					{
+                    text: "发送通知",
+                    cls: "btn-primary btn-sm",
+                    handle: function (index, data) {
+                    	var requestUrl = App.href + "/api/core/message/insert";
+                    	$.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                spId: data.id
+                            },
+                            url: requestUrl,
+                            success: function (data) {
+                                if (data.code === 200) {
+                                    grid.reload();
+									alert("发送成功");
                                 } else {
                                     alert(data.message);
                                 }

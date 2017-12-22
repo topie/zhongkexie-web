@@ -22,25 +22,25 @@
                 '<div class="row">' +
                 '<div class="col-md-6" >' +
                 '<div class="panel panel-info" >' +
-                '<div class="panel-heading">通知公告</div>' +
+                '<div class="panel-heading"><i class="fa fa-bell fa-fw"></i>通知公告</div>' +
                 '<div class="panel-body" id="content1"></div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6" >' +
                 '<div class="panel panel-warning" >' +
-                '<div class="panel-heading">今日日程</div>' +
+                '<div class="panel-heading"><i class="fa fa-calendar fa-fw"></i>今日日程</div>' +
                 '<div class="panel-body" id="content2"></div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6" >' +
                 '<div class="panel panel-danger" >' +
-                '<div class="panel-heading">实用工具</div>' +
+                '<div class="panel-heading"><i class="fa fa-suitcase fa-fw"></i>实用工具</div>' +
                 '<div class="panel-body" id="content3"></div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6" >' +
                 '<div class="panel panel-success" >' +
-                '<div class="panel-heading">板块4</div>' +
+                '<div class="panel-heading"><i class="fa fa-pencil fa-fw"></i>板块4</div>' +
                 '<div class="panel-body" id="content4"></div>' +
                 '</div>' +
                 '</div>' +

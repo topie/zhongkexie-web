@@ -13,10 +13,10 @@
             var content = $('<div class="panel-body" >' +
                 '<div class="row">' +
                 '<div class="col-md-12" >' +
-                '<div class="panel panel-default" >' +
-                '<div class="panel-heading">题库试卷管理</div>' +
+              //  '<div class="panel panel-default" >' +
+              //  '<div class="panel-heading">题库试卷管理</div>' +
                 '<div class="panel-body" id="grid"></div>' +
-                '</div>' +
+              //  '</div>' +
                 '</div>' +
                 '</div>' +
                 '</div>');

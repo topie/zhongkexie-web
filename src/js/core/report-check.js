@@ -108,6 +108,10 @@
                             success: function (data) {
                                 if (data.code === 200) {
                                     paper.loadAnswer(data.data);
+									modal.$body.find('input').each(function(){
+										if($(this).attr('name')!='button')
+											$(this).attr("disabled","true");
+									});
                                 } else {
                                     alert(data.message);
                                 }
@@ -159,32 +163,6 @@
                             success: function (data) {
                                 if (data.code === 200) {
                                     grid.reload();
-                                } else {
-                                    alert(data.message);
-                                }
-                            },
-                            error: function (e) {
-                                alert("请求异常。");
-                            }
-                        });
-                    }
-                },
-					{
-                    text: "发送通知",
-                    cls: "btn-primary btn-sm",
-                    handle: function (index, data) {
-                    	var requestUrl = App.href + "/api/core/message/insert";
-                    	$.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            data: {
-                                spId: data.id
-                            },
-                            url: requestUrl,
-                            success: function (data) {
-                                if (data.code === 200) {
-                                    grid.reload();
-									alert("发送成功");
                                 } else {
                                     alert(data.message);
                                 }

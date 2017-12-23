@@ -14,8 +14,15 @@
                 '<div class="row">' +
                 '<div class="col-md-5" >' +
                 '<div class="panel panel-default" >' +
-                '<div class="panel-heading">评价指标管理' +
-                '<div class="pull-right">' +
+                '<div class="panel-heading">' +
+				'<div class="row">'+
+				'<div class="col-md-9">'+
+				'<select class="form-control input-sm" id="paperSelect">'+
+					'<option>TODO 动态加载考评表</option>'+
+					'<option>2018全国学会综合能力指标体系考评表</option>'+
+					'<option>2017全国学会综合能力指标体系考评表</option>'+
+				'</select>'+
+                /*'<div class="pull-right">' +
                 '<div class="btn-group">' +
                 '<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
                 '操作' +
@@ -24,8 +31,11 @@
                 '<ul class="dropdown-menu pull-right" role="menu">' +
                 '<li><a id="add_node" href="javascript:void(0);">添加</a>' +
                 '</li>' +
-                '</ul>' +
+                '</ul>' +*/
                 '</div>' +
+					'<div class="col-md-3">'+
+					'<a id="add_node" class="btn btn-primary btn-sm" href="javascript:void(0);">添加</a>'+
+					'</div>'+
                 '</div>' +
                 '</div>' +
                 '<div class="panel-body">' +

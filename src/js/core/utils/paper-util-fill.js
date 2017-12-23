@@ -38,7 +38,7 @@
                                 id: '',
                                 type: 'display',
                                 label: '',
-                                html: '<h4>' + idx.parentIndexTitle + '</h4>'
+                                html: '<span>' + idx.parentIndexTitle + '</span>'
                             };
                             var it = {};
                             it.name = item.id;
